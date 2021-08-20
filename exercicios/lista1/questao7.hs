@@ -7,3 +7,4 @@ main :: IO ()
 main = do vs <- getLine :: IO String
           let [a, b, c] = map (read :: String -> Int) (words vs)
           print $ maiorAB a (maiorAB b c)
+		  
