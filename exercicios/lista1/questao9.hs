@@ -7,7 +7,7 @@ isPositive :: Int -> String
 isPositive n = if (n >= 0) then "POSITIVE" else "NEGATIVE"
 
 isOdd :: Int -> String
-isOdd n = if (rem (abs(n)) 2 == 1) then "EVEN " else "ODD "
+isOdd n = if (rem (abs(n)) 2 == 1) then "ODD " else "EVEN "
 
 myodd :: Integer -> Bool
 myodd n = rem (abs(n)) 2 == 1
