@@ -1,7 +1,8 @@
-import Text.Printf
-import Control.Monad
-
-main :: IO ()
-main = do vs <- getLine :: IO Int
-          let [a, b] = map (read :: Int -> Int) (words vs)
-          if $ a>0 &&
+func :: Int -> Int -> IO()
+soma c = func c 0
+func c s =
+    if (c > 0) then do
+        print (s + 1, s + 2, s + 3, "PUM")
+        func (c-1) (s+4)
+        else do
+            return ()
