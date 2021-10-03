@@ -13,4 +13,3 @@ comparar n1 n2
                                                    else let n1tail=read(drop 1 (show n1))::Int
                                                         in comparar n1tail n2
     | otherwise = "nao encaixa"
-	
