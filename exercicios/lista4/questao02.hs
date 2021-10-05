@@ -1,7 +1,7 @@
 import Numeric (showHex, showIntAtBase)
 import Data.Char (intToDigit)
- --lembrando que os numeros estão em string, logo no console deve-se ter "" entre eles
- 
+import Text.Printf (printf)
+
 bintodec :: Integral i => i -> i
 bintodec 0 = 0
 bintodec i = 2 * bintodec (div i 10) + (mod i 10)
@@ -31,13 +31,27 @@ hexChar ch
     | ch == 'e' = 14
     | ch == 'f' = 15
     | otherwise     = 0
- 
+
 parseHex :: String -> Integer
 parseHex [] = 0
 parseHex hxStr = hexChar (last hxStr) + (16 * parseHex (init hxStr))
- 
+
 converter:: String -> String -> [String]
-converter x y
-    |y == "bin" = [(show (bintodec (read x::Int))), (showHex (bintodec (read x::Int))(""))]--Num em Dec/Hex
-    |y == "dec" = [(showHex (( read x::Int)) ("")), showIntAtBase (2) intToDigit (read x::Int) ("")]--Num em Hex/Bin
-    |y == "hex" = [show(parseHex x),showIntAtBase (2) intToDigit (parseHex x) ("")]
+converter x y --["valor dec","valor hex","dec","hex"]
+    |y == "bin" = [(show (bintodec (read x::Int))), (showHex (bintodec (read x::Int))("")),"dec","hex"] --Num em Dec/Hex
+    |y == "dec" = [(showHex (( read x::Int)) ("")), showIntAtBase (2) intToDigit (read x::Int) (""),"hex","bin"] --Num em Hex/Bin
+    |y == "hex" = [show(parseHex x),showIntAtBase (2) intToDigit (parseHex x) (""),"dec","bin"]
+        
+main::IO()
+main = do arg1<-getLine::IO String
+          pinga (read(arg1)::Int)
+          printf ""
+
+pinga 0 = do printf ""
+pinga x = do pinga (x-1)
+             arg1<-getLine::IO String
+             let y = converter (head(words arg1)) (words arg1 !!1)
+             printf"Caso %d:\n" x
+             printf "%s %s\n" (y!!0) (y!!2)
+             printf "%s %s\n" (y!!1) (y!!3)
+             printf"\n" 
